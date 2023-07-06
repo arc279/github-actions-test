@@ -3,7 +3,7 @@ name: "web-crawler infra"
 on:
   pull_request:
     branches:
-      - develop/**
+      - develop
     paths:
       - app/src/**
     types:
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
 
 env:
-  ENV: development
+  ENV: develop
   AWS_DEFAULT_REGION: ap-northeast-1
 
 jobs:
