@@ -20,20 +20,23 @@ jobs:
   update-infra:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: app/src/
-
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - run: |
+      - name: step1
+        run: |
+          pwd
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
           echo merged: ${{ github.event.pull_request.merged }}
           echo opened: ${{ github.event.pull_request.opened }}
           echo closed: ${{ github.event.pull_request.closed }}
+        working-directory: app/src/
 
-      - if: github.event.pull_request.merged == true
-        run: echo merged!!!
+      - name: step2
+        if: github.event.pull_request.merged == true
+        run: |
+          pwd
+          echo merged!!!
+        working-directory: app/src/
