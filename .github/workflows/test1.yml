@@ -1,14 +1,15 @@
 name: "web-crawler infra"
 
 on:
+  push:
+    paths:
+      - app/src/**
   pull_request:
     branches:
       - develop
     paths:
       - app/src/**
     types:
-      - opened
-      - ready_for_review
       - closed
   workflow_dispatch:
 
@@ -31,6 +32,7 @@ jobs:
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
           echo event name: ${{ github.event_name }}
+          echo event type: ${{ github.event.action }}
           echo merged: ${{ github.event.pull_request.merged }}
 
       - name: step2
