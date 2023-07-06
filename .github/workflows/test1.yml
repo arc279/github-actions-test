@@ -18,7 +18,7 @@ env:
   AWS_DEFAULT_REGION: ap-northeast-1
 
 jobs:
-  update-infra:
+  test-jobs:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,6 +31,7 @@ jobs:
           ls -la
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
+          echo event number: ${{github.event.number}}
           echo event name: ${{ github.event_name }}
           echo event type: ${{ github.event.action }}
           echo merged: ${{ github.event.pull_request.merged }}
