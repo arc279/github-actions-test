@@ -37,6 +37,13 @@ jobs:
           echo merged: ${{ github.event.pull_request.merged }}
 
       - name: step2
+        run: |
+          echo '2' ${{ github.ref }}
+          echo '3' ${{ github.ref_name }}
+          echo '4' ${{ github.head_ref }}
+          echo '5' ${{ github.base_ref }}
+
+      - name: step3
         if: github.event.pull_request.merged == true
         run: |
           pwd
