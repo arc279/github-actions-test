@@ -32,6 +32,7 @@ jobs:
           echo ${{ env.ENV }}
           echo merged: ${{ github.event.pull_request.merged }}
           echo opened: ${{ github.event.pull_request.opened }}
+          echo ready_for_review: ${{ github.event.pull_request.ready_for_review }}
           echo closed: ${{ github.event.pull_request.closed }}
 
       - name: step2
@@ -53,4 +54,11 @@ jobs:
         run: |
           pwd
           echo closed!!!
+        working-directory: app/src/
+
+      - name: step5
+        if: github.event.pull_request.ready_for_review == true
+        run: |
+          pwd
+          echo ready_for_review!!!
         working-directory: app/src/
