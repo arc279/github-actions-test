@@ -30,35 +30,12 @@ jobs:
           ls -la
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
+          echo event name: ${{ github.event_name }}
           echo merged: ${{ github.event.pull_request.merged }}
-          echo opened: ${{ github.event.pull_request.opened }}
-          echo ready_for_review: ${{ github.event.pull_request.ready_for_review }}
-          echo closed: ${{ github.event.pull_request.closed }}
 
       - name: step2
         if: github.event.pull_request.merged == true
         run: |
           pwd
           echo merged!!!
-        working-directory: app/src/
-
-      - name: step3
-        if: github.event.pull_request.opened == true
-        run: |
-          pwd
-          echo opened!!!
-        working-directory: app/src/
-
-      - name: step4
-        if: github.event.pull_request.closed == true
-        run: |
-          pwd
-          echo closed!!!
-        working-directory: app/src/
-
-      - name: step5
-        if: github.event.pull_request.ready_for_review == true
-        run: |
-          pwd
-          echo ready_for_review!!!
         working-directory: app/src/
