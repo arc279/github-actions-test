@@ -1,14 +1,17 @@
 name: "web-crawler infra"
 
 on:
+  push:
+    branches:
+      - develop
+    paths:
+      - app/src/**
   pull_request:
     branches:
       - develop
     paths:
       - app/src/**
     types:
-      - opened
-      - ready_for_review
       - closed
   workflow_dispatch:
 
