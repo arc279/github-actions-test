@@ -22,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: app/src/development/
+        working-directory: app/src/
 
     steps:
       - name: Check out repository code
