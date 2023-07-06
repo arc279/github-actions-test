@@ -1,0 +1,39 @@
+name: "web-crawler infra"
+
+on:
+  pull_request:
+    branches:
+      - develop/**
+    paths:
+      - app/src/**
+    types:
+      - opened
+      - ready_for_review
+      - closed
+  workflow_dispatch:
+
+env:
+  ENV: development
+  AWS_DEFAULT_REGION: ap-northeast-1
+
+jobs:
+  update-infra:
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: app/src/development/
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - run: |
+          echo ${{ env.AWS_DEFAULT_REGION }}
+          echo ${{ env.ENV }}
+          echo merged: ${{ github.event.pull_request.merged }}
+          echo opened: ${{ github.event.pull_request.opened }}
+          echo closed: ${{ github.event.pull_request.closed }}
+
+      - if: github.event.pull_request.merged == true
+        run: echo merged!!!
