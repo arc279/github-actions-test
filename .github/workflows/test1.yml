@@ -40,3 +40,17 @@ jobs:
           pwd
           echo merged!!!
         working-directory: app/src/
+
+      - name: step3
+        if: github.event.pull_request.opened == true
+        run: |
+          pwd
+          echo opened!!!
+        working-directory: app/src/
+
+      - name: step4
+        if: github.event.pull_request.closed == true
+        run: |
+          pwd
+          echo closed!!!
+        working-directory: app/src/
