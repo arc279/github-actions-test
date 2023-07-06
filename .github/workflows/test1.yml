@@ -2,8 +2,6 @@ name: "web-crawler infra"
 
 on:
   push:
-    branches:
-      - develop
     paths:
       - app/src/**
   pull_request:
