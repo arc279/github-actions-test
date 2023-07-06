@@ -31,6 +31,7 @@ jobs:
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
           echo event name: ${{ github.event_name }}
+          echo event type: ${{ github.event.action }}
           echo merged: ${{ github.event.pull_request.merged }}
 
       - name: step2
