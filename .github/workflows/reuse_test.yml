@@ -1,0 +1,13 @@
+on:
+  workflow_call:
+
+jobs:
+  update-infra:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: called
+        run: |
+          echo "called"
+          pwd
+          ls -la
