@@ -1,0 +1,47 @@
+name: "infra"
+
+on:
+  push:
+    paths:
+      - infra/**
+  workflow_dispatch:
+
+env:
+  ENV: develop
+  TF_VERSION: 1.5.0
+  AWS_DEFAULT_REGION: ap-northeast-1
+
+jobs:
+  update-infra:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: terraform fmt
+        working-directory: infra
+        run: terraform fmt -check -recursive
+
+      - name: terraform validate
+        working-directory: infra/${{ env.ENV }}
+        run: terraform validate
+
+      - name: terraform init
+        run: terraform init
+        working-directory: infra/${{ env.ENV }}
+
+      - name: terraform plan
+        working-directory: infra/${{ env.ENV }}
+        run: |
+          echo terraform plan -no-color
+
+      - name: terraform apply
+        working-directory: infra
+        if: github.event.pull_request.merged == true
+        run: echo terraform apply -no-color -auto-approve

@@ -1,9 +1,7 @@
-name: "web-crawler infra"
+name: "test"
 
 on:
   push:
-    paths:
-      - app/src/**
   workflow_dispatch:
 
 env:
