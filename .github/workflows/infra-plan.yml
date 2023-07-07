@@ -1,0 +1,33 @@
+name: "infra"
+
+on:
+  push:
+    paths:
+      - infra/**
+  workflow_dispatch:
+
+jobs:
+  develop:
+    uses: ./.github/workflows/reuse_infra.yml
+    with:
+      cwd: ./infra/env/develop
+      apply: false
+
+  staging:
+    uses: ./.github/workflows/reuse_infra.yml
+    with:
+      cwd: ./infra/env/staging
+      apply: false
+
+  production:
+    uses: ./.github/workflows/reuse_infra.yml
+    with:
+      cwd: ./infra/env/production
+      apply: false
+
+  finish:
+    runs-on: ubuntu-latest
+    needs: [develop, staging, production]
+    steps:
+      - name: finish
+        run: echo "finish"
