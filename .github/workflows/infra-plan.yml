@@ -24,19 +24,19 @@ jobs:
           echo '5' ${{ github.base_ref }}
 
   develop:
-    uses: ./.github/workflows/reuse_infra.yml
+    uses: ./.github/workflows/_terraform.plan.yml
     with:
       cwd: ./infra/env/develop
       apply: false
 
   staging:
-    uses: ./.github/workflows/reuse_infra.yml
+    uses: ./.github/workflows/_terraform.plan.yml
     with:
       cwd: ./infra/env/staging
       apply: false
 
   production:
-    uses: ./.github/workflows/reuse_infra.yml
+    uses: ./.github/workflows/_terraform.plan.yml
     with:
       cwd: ./infra/env/production
       apply: false
