@@ -39,9 +39,9 @@ jobs:
       - name: terraform plan
         working-directory: infra/${{ env.ENV }}
         run: |
-          echo terraform plan -no-color
+          terraform plan -no-color
 
       - name: terraform apply
         working-directory: infra
         if: github.event.pull_request.merged == true
-        run: echo terraform apply -no-color -auto-approve
+        run: terraform apply -no-color -auto-approve
