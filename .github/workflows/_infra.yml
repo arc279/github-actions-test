@@ -1,0 +1,51 @@
+name: "infra"
+
+on:
+  workflow_call:
+    inputs:
+      cwd:
+        required: true
+        type: string
+      apply:
+        required: true
+        type: boolean
+  workflow_dispatch:
+
+env:
+  TF_VERSION: 1.5.0
+  AWS_DEFAULT_REGION: ap-northeast-1
+
+jobs:
+  update-infra:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: terraform fmt
+        working-directory: ${{ inputs.cwd }}
+        run: terraform fmt -check -recursive
+
+      - name: terraform init
+        working-directory: ${{ inputs.cwd }}
+        run: terraform init
+
+      - name: terraform validate
+        working-directory: ${{ inputs.cwd }}
+        run: terraform validate
+
+      - name: terraform plan
+        working-directory: ${{ inputs.cwd }}
+        run: |
+          terraform plan -no-color
+
+      - name: terraform apply
+        working-directory: ${{ inputs.cwd }}
+        if: inputs.apply == true
+        run: terraform apply -no-color -auto-approve
