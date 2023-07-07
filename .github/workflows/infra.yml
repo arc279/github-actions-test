@@ -19,6 +19,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: check
+        run: |
+          ls -la
+          pwd
+          find
+
       - name: reuse workflow
         uses: ./.github/workflows/_infra.yml
         with:
