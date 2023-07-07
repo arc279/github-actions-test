@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - infra/**
+  pull_request:
+    paths:
+      - infra/**
   workflow_dispatch:
 
 jobs:
