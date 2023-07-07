@@ -13,40 +13,22 @@ env:
 
 jobs:
   develop:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: check
-        run: |
-          ls -la
-          pwd
-          find
-
-      - name: reuse workflow
-        uses: ./.github/workflows/reuse_infra.yml
-        with:
-          cwd: ./infra/env/develop
-          apply: false
+    uses: ./.github/workflows/reuse_infra.yml
+    with:
+      cwd: ./infra/env/develop
+      apply: false
 
   staging:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: reuse workflow
-        uses: ./.github/workflows/reuse_infra.yml
-        with:
-          cwd: ./infra/env/staging
-          apply: false
+    uses: ./.github/workflows/reuse_infra.yml
+    with:
+      cwd: ./infra/env/staging
+      apply: false
 
   production:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: reuse workflow
-        uses: ./.github/workflows/reuse_infra.yml
-        with:
-          cwd: ./infra/env/production
-          apply: false
+    uses: ./.github/workflows/reuse_infra.yml
+    with:
+      cwd: ./infra/env/production
+      apply: false
 
   finish:
     runs-on: ubuntu-latest
