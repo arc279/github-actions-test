@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: ./.github/_infra.yml
+        uses: ./.github/workflows/_infra.yml
         with:
           cwd: ./infra/env/develop
           apply: false
@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: ./.github/_infra.yml
+        uses: ./.github/workflows/_infra.yml
         with:
           cwd: ./infra/env/staging
           apply: false
@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Check out repository code
-        uses: ./.github/_infra.yml
+        uses: ./.github/workflows/_infra.yml
         with:
           cwd: ./infra/env/production
           apply: false
