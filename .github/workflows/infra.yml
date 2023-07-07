@@ -28,6 +28,7 @@ jobs:
     uses: ./.github/workflows/reuse_infra.yml
     with:
       cwd: ./infra/env/staging
+      apply: false
       # apply: ${{ github.event.pull_request.merged == true }}
 
   production:
@@ -35,7 +36,7 @@ jobs:
     uses: ./.github/workflows/reuse_infra.yml
     with:
       cwd: ./infra/env/production
-      apply: ${{ github.event.pull_request.merged == true }}
+      apply: ${{ github.event.pull_request.merged == false }}
 
   finish:
     runs-on: ubuntu-latest
