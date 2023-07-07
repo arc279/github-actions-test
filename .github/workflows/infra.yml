@@ -4,15 +4,15 @@ on:
   push:
     paths:
       - infra/**
-  pull_request:
-    types:
-      - closed
-    paths:
-      - infra/**
-    branches:
-      - develop
-      - release/**
-      - main
+  # pull_request:
+  #   types:
+  #     - closed
+  #   paths:
+  #     - infra/**
+  #   branches:
+  #     - develop
+  #     - release/**
+  #     - main
   workflow_dispatch:
 
 jobs:
