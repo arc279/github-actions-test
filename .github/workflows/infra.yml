@@ -29,19 +29,19 @@ jobs:
         run: terraform fmt -check -recursive
 
       - name: terraform validate
-        working-directory: infra/${{ env.ENV }}
+        working-directory: infra/env/${{ env.ENV }}
         run: terraform validate
 
       - name: terraform init
+        working-directory: infra/env/${{ env.ENV }}
         run: terraform init
-        working-directory: infra/${{ env.ENV }}
 
       - name: terraform plan
-        working-directory: infra/${{ env.ENV }}
+        working-directory: infra/env/${{ env.ENV }}
         run: |
           terraform plan -no-color
 
       - name: terraform apply
-        working-directory: infra
+        working-directory: infra/env/${{ env.ENV }}
         if: github.event.pull_request.merged == true
         run: terraform apply -no-color -auto-approve
