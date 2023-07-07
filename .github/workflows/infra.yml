@@ -21,21 +21,21 @@ jobs:
     uses: ./.github/workflows/reuse_infra.yml
     with:
       cwd: ./infra/env/develop
-      apply: github.event.pull_request.merged
+      apply: github.event.pull_request.merged == true
 
   staging:
     if: startsWith(github.base_ref, 'release/')
     uses: ./.github/workflows/reuse_infra.yml
     with:
       cwd: ./infra/env/staging
-      apply: github.event.pull_request.merged
+      apply: github.event.pull_request.merged == true
 
   production:
     if: github.base_ref == 'main'
     uses: ./.github/workflows/reuse_infra.yml
     with:
       cwd: ./infra/env/production
-      apply: github.event.pull_request.merged
+      apply: github.event.pull_request.merged == true
 
   finish:
     runs-on: ubuntu-latest
