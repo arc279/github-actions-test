@@ -1,4 +1,4 @@
-name: "infra"
+name: "infra apply"
 
 on:
   pull_request:

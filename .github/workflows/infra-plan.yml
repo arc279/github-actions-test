@@ -1,4 +1,4 @@
-name: "infra"
+name: "infra plan"
 
 on:
   push:
