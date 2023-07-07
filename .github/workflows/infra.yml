@@ -26,7 +26,7 @@ jobs:
           find
 
       - name: reuse workflow
-        uses: ./.github/workflows/_infra.yml
+        uses: ./.github/workflows/reuse_infra.yml
         with:
           cwd: ./infra/env/develop
           apply: false
@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: reuse workflow
-        uses: ./.github/workflows/_infra.yml
+        uses: ./.github/workflows/reuse_infra.yml
         with:
           cwd: ./infra/env/staging
           apply: false
@@ -52,7 +52,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: reuse workflow
-        uses: ./.github/workflows/_infra.yml
+        uses: ./.github/workflows/reuse_infra.yml
         with:
           cwd: ./infra/env/production
           apply: false
