@@ -7,7 +7,6 @@ on:
       apply:
         required: true
         type: boolean
-  workflow_dispatch:
 
 env:
   TF_VERSION: 1.5.0
