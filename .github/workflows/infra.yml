@@ -28,13 +28,13 @@ jobs:
         working-directory: infra
         run: terraform fmt -check -recursive
 
-      - name: terraform validate
-        working-directory: infra/env/${{ env.ENV }}
-        run: terraform validate
-
       - name: terraform init
         working-directory: infra/env/${{ env.ENV }}
         run: terraform init
+
+      - name: terraform validate
+        working-directory: infra/env/${{ env.ENV }}
+        run: terraform validate
 
       - name: terraform plan
         working-directory: infra/env/${{ env.ENV }}
