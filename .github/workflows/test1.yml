@@ -10,14 +10,7 @@ env:
 
 jobs:
   test-job3:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
-
-      - name: call reuse
-        uses: ./.github/workflows/reuse_test.yml
+    uses: ./.github/workflows/reuse_test.yml
 
   test-job1:
     runs-on: ubuntu-latest
