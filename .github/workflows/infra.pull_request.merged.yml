@@ -1,0 +1,36 @@
+name: "infra on pull_request merged"
+
+on:
+  push:
+    paths:
+      - infra/**
+    branches:
+      - main
+      - release/**
+      - develop
+  workflow_dispatch:
+
+jobs:
+  develop:
+    if: github.base_ref == 'develop'
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/develop
+      pr_number: ${{ github.event.number }}
+      apply: true
+
+  staging:
+    if: startsWith(github.base_ref, 'release/')
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/staging
+      pr_number: ${{ github.event.number }}
+      apply: true
+
+  production:
+    if: github.base_ref == 'main'
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/production
+      pr_number: ${{ github.event.number }}
+      apply: true

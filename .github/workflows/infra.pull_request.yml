@@ -1,0 +1,30 @@
+name: "infra on pull_request"
+
+on:
+  pull_request:
+    paths:
+      - infra/**
+    branches:
+      - main
+      - release/**
+      - develop
+  workflow_dispatch:
+
+jobs:
+  develop:
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/develop
+      pr_number: ${{ github.event.number }}
+
+  staging:
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/staging
+      pr_number: ${{ github.event.number }}
+
+  production:
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/production
+      pr_number: ${{ github.event.number }}

@@ -1,0 +1,27 @@
+name: "infra on push"
+
+on:
+  push:
+    paths:
+      - infra/**
+    branches-ignore:
+      - main
+      - release/**
+      - develop
+  workflow_dispatch:
+
+jobs:
+  develop:
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/develop
+
+  staging:
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/staging
+
+  production:
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/production
