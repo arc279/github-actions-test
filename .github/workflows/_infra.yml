@@ -1,5 +1,3 @@
-name: "infra"
-
 on:
   workflow_call:
     inputs:
