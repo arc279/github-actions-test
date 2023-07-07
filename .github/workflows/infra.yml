@@ -16,7 +16,7 @@ jobs:
     uses: ./.github/workflows/reuse_infra.yml
     with:
       cwd: ./infra/env/develop
-      apply: false
+      apply: true
 
   staging:
     uses: ./.github/workflows/reuse_infra.yml
