@@ -7,6 +7,22 @@ on:
   workflow_dispatch:
 
 jobs:
+  show:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: show
+        run: |
+          echo event number: ${{github.event.number}}
+          echo event name: ${{ github.event_name }}
+          echo event type: ${{ github.event.action }}
+          echo merged: ${{ github.event.pull_request.merged }}
+
+          echo '2' ${{ github.ref }}
+          echo '3' ${{ github.ref_name }}
+          echo '4' ${{ github.head_ref }}
+          echo '5' ${{ github.base_ref }}
+
   develop:
     uses: ./.github/workflows/reuse_infra.yml
     with:
