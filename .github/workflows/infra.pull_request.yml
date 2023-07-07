@@ -1,4 +1,5 @@
 name: "infra on pull_request"
+# PR 作成、更新時の terraform plan
 
 on:
   pull_request:

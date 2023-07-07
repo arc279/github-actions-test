@@ -1,4 +1,5 @@
 name: "infra on push"
+# トピックブランチ更新時の terraform plan
 
 on:
   push:
