@@ -10,5 +10,4 @@ a3:
 	@ ${CMD} -W .github/workflows/infra.branch.merged.yml -j develop
 
 a4:
-	@ ${CMD} pull_request -W .github/workflows/infra.branch.merged.yml -j develop
-
+	@ ${CMD} pull_request -W .github/workflows/test2.yml -e event.pull_request.json

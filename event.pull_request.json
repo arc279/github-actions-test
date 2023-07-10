@@ -1,0 +1,13 @@
+{
+  "number": 123,
+  "ref": "refs/tags/this-is-a-tag",
+  "pull_request": {
+    "merged": true,
+    "head": {
+      "ref": "sample-head-ref"
+    },
+    "base": {
+      "ref": "sample-base-ref"
+    }
+  }
+}

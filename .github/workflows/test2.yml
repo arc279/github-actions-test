@@ -1,0 +1,36 @@
+name: "test"
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+env:
+  ENV: develop
+  TF_VERSION: 1.5.0
+  AWS_DEFAULT_REGION: ap-northeast-1
+  SECRET_HOGE: ${{ secrets.HOGE }}
+
+jobs:
+  test-job1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: step1
+        run: |
+          curl -V
+          pwd
+          ls -la
+          echo ${{ env.AWS_DEFAULT_REGION }}
+          echo ${{ env.ENV }}
+          echo event number: ${{github.event.number}}
+          echo event name: ${{ github.event_name }}
+          echo event type: ${{ github.event.action }}
+          echo merged: ${{ github.event.pull_request.merged }}
+
+          echo '2 ${{ github.ref }}'
+          echo '3 ${{ github.ref_name }}'
+          echo '4 ${{ github.head_ref }}'
+          echo '5 ${{ github.base_ref }}'
