@@ -48,3 +48,27 @@ jobs:
 
   test-job2:
     uses: ./.github/workflows/reuse_test.yml
+
+  test-job3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: step1
+        run: |
+          echo '{"Credentials":{"AccessKeyId":"AAA","SecretAccessKey":"BBB","SessionToken":"CCC","Expiration":"2023-07-10T02:56:21+00:00"},"AssumedRoleUser":{"AssumedRoleId":"DDD","Arn":"EEE"}}' >/tmp/cred.json
+          jq -r '"export AWS_ACCESS_KEY_ID=\(.Credentials.AccessKeyId)"' /tmp/cred.json >> ${GITHUB_ENV}
+          jq -r '"export AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
+          jq -r '"export AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
+
+          echo /tmp/cred.json
+          cat /tmp/cred.json
+          echo ${GITHUB_ENV}
+          cat ${GITHUB_ENV}
+
+      - name: step2
+        run: |
+          echo ${GITHUB_ENV}
+          cat ${GITHUB_ENV}
+          echo ${AWS_ACCESS_KEY_ID}
+          echo ${AWS_SECRET_ACCESS_KEY}
+          echo ${AWS_SESSION_TOKEN}
