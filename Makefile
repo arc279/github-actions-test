@@ -16,8 +16,8 @@ a5:
 	@ ${CMD} pull_request -W .github/workflows/infra.branch.pull_request.yml -e event.pull_request.json
 
 a6:
-	@ ${CMD} -W .github/workflows/infra.branch.merged.yml -e event.push.json
+	@ ${CMD} -W .github/workflows/infra.push.merged.yml -e event.push.json
 
-a6:
-	@ ${CMD} -W .github/workflows/infra.push.topic-branch.yml;tabe  -e event.push.json
+a7:
+	@ ${CMD} -W .github/workflows/infra.push.topic-branch.yml -j develop  -e event.push.json
 
