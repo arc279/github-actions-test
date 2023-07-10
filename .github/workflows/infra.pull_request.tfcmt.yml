@@ -1,5 +1,4 @@
-name: "infra on pull_request"
-# PR 作成、更新時の tfcmt
+name: "infra: PR作成時の tfcmt"
 
 on:
   pull_request:

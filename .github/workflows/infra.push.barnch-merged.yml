@@ -1,5 +1,4 @@
-name: "infra on pull_request merged"
-# PR マージ後の terraform apply
+name: "infra: PRマージ時の terraform apply"
 
 on:
   push:
