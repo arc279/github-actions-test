@@ -1,13 +1,13 @@
 {
   "number": 123,
-  "ref": "refs/tags/this-is-a-tag",
+  "ref": "refs/heads/kuryu/dev1",
   "pull_request": {
     "merged": true,
     "head": {
       "ref": "sample-head-ref"
     },
     "base": {
-      "ref": "sample-base-ref"
+      "ref": "develop"
     }
   }
 }

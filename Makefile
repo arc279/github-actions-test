@@ -11,3 +11,10 @@ a3:
 
 a4:
 	@ ${CMD} pull_request -W .github/workflows/test2.yml -e event.pull_request.json
+
+a5:
+	@ ${CMD} pull_request -W .github/workflows/infra.branch.pull_request.yml -e event.pull_request.json
+
+a6:
+	@ ${CMD} -W .github/workflows/infra.branch.merged.yml -e event.push.json
+
