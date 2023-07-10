@@ -12,7 +12,7 @@ runs:
       shell: bash
       run: |
         echo '{"Credentials":{"AccessKeyId":"AAA","SecretAccessKey":"BBB","SessionToken":"CCC","Expiration":"2023-07-10T02:56:21+00:00"},"AssumedRoleUser":{"AssumedRoleId":"DDD","Arn":"EEE"}}' >/tmp/cred.json
-        # aws sts assume-role --role-arn arn:aws:iam::${{ inputs.aws_account_id }}:role/opendata-terraform-execution --role-session-name inter-circleci >/tmp/cred.json
+        # aws sts assume-role --role-arn arn:aws:iam::${{ inputs.aws_account_id }}:role/opendata-terraform-execution --role-session-name inter-gh-actions >/tmp/cred.json
         jq -r '"AWS_ACCESS_KEY_ID=\(.Credentials.AccessKeyId)"' /tmp/cred.json >> ${GITHUB_ENV}
         jq -r '"AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
         jq -r '"AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
