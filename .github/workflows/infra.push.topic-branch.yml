@@ -19,13 +19,16 @@ jobs:
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/develop
+      TF_VERSION: ${{ env.TF_VERSION }}
 
   staging:
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/staging
+      TF_VERSION: ${{ env.TF_VERSION }}
 
   production:
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/production
+      TF_VERSION: ${{ env.TF_VERSION }}
