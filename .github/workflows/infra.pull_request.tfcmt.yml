@@ -1,0 +1,44 @@
+name: "infra on pull_request"
+# PR 作成、更新時の tfcmt
+
+on:
+  pull_request:
+    paths:
+      - infra/**
+    branches:
+      - main
+      - release/**
+      - develop
+  workflow_dispatch:
+
+env:
+  TF_VERSION: 1.5.0
+  AWS_DEFAULT_REGION: ap-northeast-1
+
+jobs:
+  develop:
+    if: github.base_ref == 'develop'
+    uses: ./.github/workflows/_tfcmt.yml
+    with:
+      cwd: ./infra/env/staging
+      target: "infra"
+      pr_number: ${{ github.event.number }}
+      TF_VERSION: ${{ env.TF_VERSION }}
+
+  staging:
+    if: startsWith(github.base_ref, 'release/')
+    uses: ./.github/workflows/_tfcmt.yml
+    with:
+      cwd: ./infra/env/staging
+      target: "infra"
+      pr_number: ${{ github.event.number }}
+      TF_VERSION: ${{ env.TF_VERSION }}
+
+  production:
+    if: github.base_ref == 'main'
+    uses: ./.github/workflows/_tfcmt.yml
+    with:
+      cwd: ./infra/env/staging
+      target: "infra"
+      pr_number: ${{ github.event.number }}
+      TF_VERSION: ${{ env.TF_VERSION }}

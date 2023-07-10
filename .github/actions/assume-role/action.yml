@@ -1,5 +1,5 @@
 name: "AWS Assume Role Action"
-description: "assume-role for aws"
+description: "AssumeRole を実行して認証情報を得る"
 inputs:
   aws_account_id:
     description: "assume-role 対象の aws account_id"

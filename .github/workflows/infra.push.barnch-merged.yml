@@ -1,8 +1,8 @@
-name: "infra on pull_request"
-# PR 作成、更新時の terraform plan
+name: "infra on pull_request merged"
+# PR マージ後の terraform apply
 
 on:
-  pull_request:
+  push:
     paths:
       - infra/**
     branches:
@@ -11,24 +11,28 @@ on:
       - develop
   workflow_dispatch:
 
+env:
+  TF_VERSION: 1.5.0
+  AWS_DEFAULT_REGION: ap-northeast-1
+
 jobs:
   develop:
-    if: github.base_ref == 'develop'
+    if: github.ref_name == 'develop'
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/develop
-      pr_number: ${{ github.event.number }}
+      apply: true
 
   staging:
-    if: startsWith(github.base_ref, 'release/')
+    if: startsWith(github.ref_name, 'release/')
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/staging
-      pr_number: ${{ github.event.number }}
+      apply: true
 
   production:
-    if: github.base_ref == 'main'
+    if: github.ref_name == 'main'
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/production
-      pr_number: ${{ github.event.number }}
+      apply: true
