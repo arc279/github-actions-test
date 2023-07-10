@@ -52,39 +52,39 @@ jobs:
   test-job3:
     runs-on: ubuntu-latest
 
-    steps:
-      - name: Set the value
-        id: step_one
-        run: |
-          echo "action_state=yellow" >> "$GITHUB_ENV"
-          echo ${GITHUB_ENV}
-          cat ${GITHUB_ENV}
-
-      - name: Use the value
-        id: step_two
-        run: |
-          echo "${{ env.action_state }}"
-          echo ${action_state}
-          echo ${GITHUB_ENV}
-          cat ${GITHUB_ENV}
-
     # steps:
-    #   - name: step1
+    #   - name: Set the value
+    #     id: step_one
     #     run: |
-    #       echo '{"Credentials":{"AccessKeyId":"AAA","SecretAccessKey":"BBB","SessionToken":"CCC","Expiration":"2023-07-10T02:56:21+00:00"},"AssumedRoleUser":{"AssumedRoleId":"DDD","Arn":"EEE"}}' >/tmp/cred.json
-    #       jq -r '"export AWS_ACCESS_KEY_ID=\(.Credentials.AccessKeyId)"' /tmp/cred.json >> ${GITHUB_ENV}
-    #       jq -r '"export AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
-    #       jq -r '"export AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
-
-    #       echo /tmp/cred.json
-    #       cat /tmp/cred.json
+    #       echo "action_state=yellow" >> "$GITHUB_ENV"
     #       echo ${GITHUB_ENV}
     #       cat ${GITHUB_ENV}
 
-    #   - name: step2
+    #   - name: Use the value
+    #     id: step_two
     #     run: |
+    #       echo "${{ env.action_state }}"
+    #       echo ${action_state}
     #       echo ${GITHUB_ENV}
     #       cat ${GITHUB_ENV}
-    #       echo ${AWS_ACCESS_KEY_ID}
-    #       echo ${AWS_SECRET_ACCESS_KEY}
-    #       echo ${AWS_SESSION_TOKEN}
+
+    steps:
+      - name: step1
+        run: |
+          echo '{"Credentials":{"AccessKeyId":"AAA","SecretAccessKey":"BBB","SessionToken":"CCC","Expiration":"2023-07-10T02:56:21+00:00"},"AssumedRoleUser":{"AssumedRoleId":"DDD","Arn":"EEE"}}' >/tmp/cred.json
+          jq -r '"AWS_ACCESS_KEY_ID=\(.Credentials.AccessKeyId)"' /tmp/cred.json >> ${GITHUB_ENV}
+          jq -r '"AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
+          jq -r '"AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
+
+          echo /tmp/cred.json
+          cat /tmp/cred.json
+          echo ${GITHUB_ENV}
+          cat ${GITHUB_ENV}
+
+      - name: step2
+        run: |
+          echo ${GITHUB_ENV}
+          cat ${GITHUB_ENV}
+          echo ${AWS_ACCESS_KEY_ID}
+          echo ${AWS_SECRET_ACCESS_KEY}
+          echo ${AWS_SESSION_TOKEN}
