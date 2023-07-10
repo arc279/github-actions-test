@@ -18,3 +18,6 @@ a5:
 a6:
 	@ ${CMD} -W .github/workflows/infra.branch.merged.yml -e event.push.json
 
+a6:
+	@ ${CMD} -W .github/workflows/infra.push.topic-branch.yml;tabe  -e event.push.json
+
