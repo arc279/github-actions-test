@@ -13,11 +13,6 @@ runs:
       run: |
         echo '{"Credentials":{"AccessKeyId":"AAA","SecretAccessKey":"BBB","SessionToken":"CCC","Expiration":"2023-07-10T02:56:21+00:00"},"AssumedRoleUser":{"AssumedRoleId":"DDD","Arn":"EEE"}}' >/tmp/cred.json
         # aws sts assume-role --role-arn arn:aws:iam::${{ inputs.aws_account_id }}:role/opendata-terraform-execution --role-session-name inter-circleci >/tmp/cred.json
-        jq -r '"export AWS_ACCESS_KEY_ID=\(.Credentials.AccessKeyId)"' /tmp/cred.json >> ${GITHUB_ENV}
-        jq -r '"export AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
-        jq -r '"export AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
-
-        echo /tmp/cred.json
-        cat /tmp/cred.json
-        echo ${GITHUB_ENV}
-        cat ${GITHUB_ENV}
+        jq -r '"AWS_ACCESS_KEY_ID=\(.Credentials.AccessKeyId)"' /tmp/cred.json >> ${GITHUB_ENV}
+        jq -r '"AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
+        jq -r '"AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
