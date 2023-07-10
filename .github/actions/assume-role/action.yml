@@ -17,5 +17,7 @@ runs:
         jq -r '"export AWS_SECRET_ACCESS_KEY=\(.Credentials.SecretAccessKey)"' /tmp/cred.json >> ${GITHUB_ENV}
         jq -r '"export AWS_SESSION_TOKEN=\(.Credentials.SessionToken)"' /tmp/cred.json >> ${GITHUB_ENV}
 
+        echo /tmp/cred.json
         cat /tmp/cred.json
+        echo ${GITHUB_ENV}
         cat ${GITHUB_ENV}
