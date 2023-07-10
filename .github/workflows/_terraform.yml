@@ -43,9 +43,7 @@ jobs:
       - name: terraform plan
         working-directory: ${{ inputs.cwd }}
         if: inputs.pr_number
-        run: |
-          curl -s https://opendata-tools.s3.ap-northeast-1.amazonaws.com/tfcmt_linux_amd64.tar.gz | tar zxf - -C /usr/local/bin/ tfcmt
-          tfcmt --var target:${{ inputs.cwd }} --owner stockmarkteam --repo inter --pr ${{ inputs.pr_number }} plan -patch -skip-no-changes -- terraform plan -no-color
+        run: terraform plan -no-color
 
       - name: terraform apply
         working-directory: ${{ inputs.cwd }}

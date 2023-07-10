@@ -13,18 +13,21 @@ on:
 
 jobs:
   develop:
+    if: github.base_ref == 'develop'
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/develop
       pr_number: ${{ github.event.number }}
 
   staging:
+    if: startsWith(github.base_ref, 'release/')
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/staging
       pr_number: ${{ github.event.number }}
 
   production:
+    if: github.base_ref == 'main'
     uses: ./.github/workflows/_terraform.yml
     with:
       cwd: ./infra/env/production
