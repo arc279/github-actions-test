@@ -102,5 +102,33 @@ jobs:
       - name: step1
         run: |
           echo TF_VERSION: ${TF_VERSION}
-          which aws
           aws --version
+
+  creds:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     role-to-assume: arn:aws:iam::590706584222:role/opendata-terraform-execution
+      #     role-session-name: github-actions-test-session
+      #     aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - name: step1
+        # run: aws s3 ls
+        run: aws sts get-caller-identity
+
+      - name: Download File from S3
+        uses: docker://amazon/aws-cli:2.0.7
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${ env.AWS_SESSION_TOKEN }}
+        with:
+          args: sts get-caller-identity
