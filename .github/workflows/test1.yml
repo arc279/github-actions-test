@@ -117,6 +117,8 @@ jobs:
 
       - name: step1
         run: |
+          which aws
+          aws --version
           aws sts get-caller-identity
           aws s3 ls
 
