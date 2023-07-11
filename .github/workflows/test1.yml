@@ -37,20 +37,6 @@ jobs:
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
 
-      - name: step2
-        uses: ./.github/actions/assume-role
-        with:
-          aws_account_id: 590706584222
-
-      - name: step3
-        run: |
-          echo GITHUB_TOKEN: ${GITHUB_TOKEN}
-          echo ${GITHUB_ENV}
-          cat ${GITHUB_ENV}
-          echo ${AWS_ACCESS_KEY_ID}
-          echo ${AWS_SECRET_ACCESS_KEY}
-          echo ${AWS_SESSION_TOKEN}
-
   test-job2:
     uses: ./.github/workflows/reuse_test.yml
 
@@ -74,12 +60,14 @@ jobs:
         with:
           aws_account_id: 590706584222
 
-      - name: step1
-        uses: ./.github/actions/tfcmt
-        with:
-          cwd: ./infra/env/develop/
-          pr_number: 123
-          TF_VERSION: ${{ env.TF_VERSION }}
+      - name: step3
+        run: |
+          echo GITHUB_TOKEN: ${GITHUB_TOKEN}
+          echo ${GITHUB_ENV}
+          cat ${GITHUB_ENV}
+          echo ${AWS_ACCESS_KEY_ID}
+          echo ${AWS_SECRET_ACCESS_KEY}
+          echo ${AWS_SESSION_TOKEN}
 
   set-env:
     runs-on: ubuntu-latest
@@ -113,14 +101,19 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      # - name: Configure AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     role-to-assume: arn:aws:iam::590706584222:role/opendata-terraform-execution
+      #     role-session-name: github-actions-test-session
+      #     aws-region: ${{ env.AWS_DEFAULT_REGION }}
+
+      - name: step2
+        uses: ./.github/actions/assume-role
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-to-assume: arn:aws:iam::590706584222:role/opendata-terraform-execution
-          role-session-name: github-actions-test-session
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+          aws_account_id: 590706584222
 
       - name: step1
         run: |
