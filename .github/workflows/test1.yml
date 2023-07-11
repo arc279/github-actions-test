@@ -22,7 +22,6 @@ jobs:
 
       - name: step1
         run: |
-          curl -V
           pwd
           ls -la
           echo ${{ env.AWS_DEFAULT_REGION }}
@@ -36,6 +35,11 @@ jobs:
           echo '3' ${{ github.ref_name }}
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
+
+      - name: step1
+        run: |
+          curl -V
+          ls -la /usr/local/bin/
 
   test-job2:
     uses: ./.github/workflows/reuse_test.yml
@@ -115,18 +119,18 @@ jobs:
         with:
           aws_account_id: 590706584222
 
-      - name: step1
-        run: |
-          which aws
-          aws --version
-          aws sts get-caller-identity
-          aws s3 ls
+      # - name: step1
+      #   run: |
+      #     which aws
+      #     aws --version
+      #     aws sts get-caller-identity
+      #     aws s3 ls
 
-      # - name: Download File from S3
-      #   uses: docker://amazon/aws-cli:2.0.7
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-      #     AWS_SESSION_TOKEN: ${ env.AWS_SESSION_TOKEN }}
-      #   with:
-      #     args: sts get-caller-identity
+      - name: Download File from S3
+        uses: docker://amazon/aws-cli:2.0.7
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${ env.AWS_SESSION_TOKEN }}
+        with:
+          args: sts get-caller-identity
