@@ -1,4 +1,4 @@
-name: "terraform apply までの一連のフロー"
+name: "_ terraform apply までの一連のフロー"
 
 on:
   workflow_call:
