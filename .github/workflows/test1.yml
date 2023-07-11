@@ -110,7 +110,7 @@ jobs:
       #     role-session-name: github-actions-test-session
       #     aws-region: ${{ env.AWS_DEFAULT_REGION }}
 
-      - name: step2
+      - name: assume-role
         uses: ./.github/actions/assume-role
         with:
           aws_account_id: 590706584222
