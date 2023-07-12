@@ -9,8 +9,8 @@ env:
   TF_VERSION: 1.5.0
   SECRET_HOGE: ${{ secrets.HOGE }}
   AWS_DEFAULT_REGION: ap-northeast-1
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   test-job1:
@@ -100,22 +100,8 @@ jobs:
 
   creds:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
 
     steps:
-      # - name: Check out repository code
-      #   uses: actions/checkout@v3
-
-      # - name: Download File from S3
-      #   uses: docker://amazon/aws-cli:2.0.7
-      #   env:
-      #     AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-      #     AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-      #   with:
-      #     args: sts get-caller-identity
-
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
@@ -129,7 +115,22 @@ jobs:
 
       - name: step1
         run: |
-          which aws
-          aws --version
-          aws sts get-caller-identity
-          aws s3 ls
+          env | sort
+
+      - name: Download File from S3
+        uses: docker://amazon/aws-cli:2.0.7
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
+        with:
+          args: sts get-caller-identity
+
+      - name: Download File from S3
+        uses: docker://amazon/aws-cli:2.0.7
+        env:
+          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
+        with:
+          args: s3 ls
