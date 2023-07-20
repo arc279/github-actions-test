@@ -1,5 +1,9 @@
 on:
   workflow_call:
+    inputs:
+      TF_VERSION:
+        required: true
+        type: string
 
 jobs:
   update-infra:
@@ -11,3 +15,4 @@ jobs:
           echo "called"
           pwd
           ls -la
+          echo ${{ inputs.TF_VERSION }}

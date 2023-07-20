@@ -43,6 +43,8 @@ jobs:
 
   test-job2:
     uses: ./.github/workflows/reuse_test.yml
+    with:
+      TF_VERSION: ${{ env.TF_VERSION }}
 
   test-job4:
     runs-on: ubuntu-latest
@@ -108,7 +110,7 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           role-to-assume: arn:aws:iam::590706584222:role/opendata-terraform-execution
-          role-session-name: github-actions-test-session
+          role-session-name: github-actions-session
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
           role-skip-session-tagging: true
           role-duration-seconds: 1200
