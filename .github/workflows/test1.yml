@@ -55,6 +55,13 @@ jobs:
     with:
       TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
 
+  test-job2-2:
+    needs: vars
+    uses: ./.github/workflows/_terraform.yml
+    with:
+      cwd: ./infra/env/develop
+      TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
+
   test-job4:
     runs-on: ubuntu-latest
 
