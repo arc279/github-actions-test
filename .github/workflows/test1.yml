@@ -41,10 +41,18 @@ jobs:
           curl -V
           ls -la /usr/local/bin/
 
+  vars:
+    runs-on: ubuntu-latest
+    outputs:
+      TF_VERSION: ${{ env.TF_VERSION }}
+    steps:
+      - run: echo "Exposing env vars"
+
   test-job2:
+    needs: vars
     uses: ./.github/workflows/reuse_test.yml
     with:
-      TF_VERSION: ${{ env.TF_VERSION }}
+      TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
 
   test-job4:
     runs-on: ubuntu-latest
