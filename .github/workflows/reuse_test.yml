@@ -15,4 +15,5 @@ jobs:
           echo "called"
           pwd
           ls -la
+          env | sort
           echo ${{ inputs.TF_VERSION }}
