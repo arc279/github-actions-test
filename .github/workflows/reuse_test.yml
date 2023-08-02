@@ -6,7 +6,7 @@ on:
         type: string
 
 env:
-  TF_VERSION2: ${{ input.TF_VERSION }}
+  TF_VERSION2: ${{ inputs.TF_VERSION }}
 
 jobs:
   update-infra:
