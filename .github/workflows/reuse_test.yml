@@ -5,6 +5,9 @@ on:
         required: true
         type: string
 
+env:
+  TF_VERSION2: ${{ input.TF_VERSION }}
+
 jobs:
   update-infra:
     runs-on: ubuntu-latest
