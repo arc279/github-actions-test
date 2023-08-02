@@ -38,7 +38,7 @@ jobs:
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
 
-      - name: step1
+      - name: step2
         run: |
           curl -V
           ls -la /usr/local/bin/
@@ -47,8 +47,8 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       TF_VERSION: ${{ env.TF_VERSION }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VERSION }}
+      AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ env.TF_VERSION }}
     steps:
       - run: echo "Exposing env vars"
 
