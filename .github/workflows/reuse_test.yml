@@ -17,7 +17,7 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ inputs.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  update-infra:
+  reuse-test:
     runs-on: ubuntu-latest
 
     steps:

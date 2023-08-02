@@ -10,8 +10,8 @@ env:
   SECRET_HOGE: ${{ secrets.HOGE }}
   ENV_HOGE: hoge
   AWS_DEFAULT_REGION: ap-northeast-1
-  # AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  # AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   test-job1:
@@ -25,6 +25,7 @@ jobs:
         run: |
           pwd
           ls -la
+          env | sort
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
           echo event number: ${{github.event.number}}
@@ -59,12 +60,12 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ needs.vars.outputs.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ needs.vars.outputs.AWS_SECRET_ACCESS_KEY }}
 
-  test-job2-2:
-    needs: vars
-    uses: ./.github/workflows/_terraform.yml
-    with:
-      cwd: ./infra/env/develop
-      TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
+  # test-job2-2:
+  #   needs: vars
+  #   uses: ./.github/workflows/_terraform.yml
+  #   with:
+  #     cwd: ./infra/env/develop
+  #     TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
 
   test-job4:
     runs-on: ubuntu-latest
@@ -74,85 +75,85 @@ jobs:
         run: |
           echo SECRET_HOGE: ${SECRET_HOGE}
 
-  test-job3:
-    runs-on: ubuntu-latest
+  # test-job3:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v3
 
-      - name: step2
-        uses: ./.github/actions/assume-role
-        with:
-          aws_account_id: 590706584222
+  #     - name: step2
+  #       uses: ./.github/actions/assume-role
+  #       with:
+  #         aws_account_id: 590706584222
 
-      - name: step3
-        run: |
-          echo GITHUB_TOKEN: ${GITHUB_TOKEN}
-          echo ${GITHUB_ENV}
-          cat ${GITHUB_ENV}
-          echo ${AWS_ACCESS_KEY_ID}
-          echo ${AWS_SECRET_ACCESS_KEY}
-          echo ${AWS_SESSION_TOKEN}
+  #     - name: step3
+  #       run: |
+  #         echo GITHUB_TOKEN: ${GITHUB_TOKEN}
+  #         echo ${GITHUB_ENV}
+  #         cat ${GITHUB_ENV}
+  #         echo ${AWS_ACCESS_KEY_ID}
+  #         echo ${AWS_SECRET_ACCESS_KEY}
+  #         echo ${AWS_SESSION_TOKEN}
 
-  set-env:
-    runs-on: ubuntu-latest
+  # set-env:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Check out repository code
+  #       uses: actions/checkout@v3
 
-      - name: step1
-        run: |
-          awk 'NR==1{ print "TF_VERSION=" $1}' infra/.terraform-version >>${GITHUB_ENV}
+  #     - name: step1
+  #       run: |
+  #         awk 'NR==1{ print "TF_VERSION=" $1}' infra/.terraform-version >>${GITHUB_ENV}
 
-      - name: step2
-        run: |
-          echo TF_VERSION: ${TF_VERSION}
+  #     - name: step2
+  #       run: |
+  #         echo TF_VERSION: ${TF_VERSION}
 
-  show-env:
-    runs-on: ubuntu-latest
-    needs: set-env
+  # show-env:
+  #   runs-on: ubuntu-latest
+  #   needs: set-env
 
-    steps:
-      - name: step1
-        run: |
-          echo TF_VERSION: ${TF_VERSION}
-          aws --version
+  #   steps:
+  #     - name: step1
+  #       run: |
+  #         echo TF_VERSION: ${TF_VERSION}
+  #         aws --version
 
-  creds:
-    runs-on: ubuntu-latest
+  # creds:
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          role-to-assume: arn:aws:iam::590706584222:role/opendata-terraform-execution
-          role-session-name: github-actions-session
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
-          role-skip-session-tagging: true
-          role-duration-seconds: 1200
+  #   steps:
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v2
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         role-to-assume: arn:aws:iam::590706584222:role/opendata-terraform-execution
+  #         role-session-name: github-actions-session
+  #         aws-region: ${{ env.AWS_DEFAULT_REGION }}
+  #         role-skip-session-tagging: true
+  #         role-duration-seconds: 1200
 
-      - name: step1
-        run: |
-          env | sort
+  #     - name: step1
+  #       run: |
+  #         env | sort
 
-      - name: Download File from S3
-        uses: docker://amazon/aws-cli:2.0.7
-        env:
-          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
-        with:
-          args: sts get-caller-identity
+  #     - name: Download File from S3
+  #       uses: docker://amazon/aws-cli:2.0.7
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+  #         AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
+  #       with:
+  #         args: sts get-caller-identity
 
-      - name: Download File from S3
-        uses: docker://amazon/aws-cli:2.0.7
-        env:
-          AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
-        with:
-          args: s3 ls
+  #     - name: Download File from S3
+  #       uses: docker://amazon/aws-cli:2.0.7
+  #       env:
+  #         AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
+  #         AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
+  #         AWS_SESSION_TOKEN: ${{ env.AWS_SESSION_TOKEN }}
+  #       with:
+  #         args: s3 ls
