@@ -47,8 +47,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       TF_VERSION: ${{ env.TF_VERSION }}
-      AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
     steps:
       - run: echo "Exposing env vars"
 
@@ -57,8 +55,7 @@ jobs:
     uses: ./.github/workflows/reuse_test.yml
     with:
       TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
-      AWS_ACCESS_KEY_ID: ${{ needs.vars.outputs.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ needs.vars.outputs.AWS_SECRET_ACCESS_KEY }}
+    secrets: inherit
 
   # test-job2-2:
   #   needs: vars
