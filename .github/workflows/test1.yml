@@ -48,7 +48,7 @@ jobs:
     outputs:
       TF_VERSION: ${{ env.TF_VERSION }}
       AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
-      AWS_SECRET_ACCESS_KEY: ${{ env.TF_VERSION }}
+      AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
     steps:
       - run: echo "Exposing env vars"
 
