@@ -55,8 +55,8 @@ jobs:
     uses: ./.github/workflows/reuse_test.yml
     with:
       TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
-      HOGE_ENV: ${{ env.HOGE_ENV }}
-      HOGE_SECRET: 222222
+      HOGE_ENV: 222
+      HOGE_SECRET: ${{ secrets.HOGE_SECRET }}
     secrets: inherit
 
   # test-job2-2:
