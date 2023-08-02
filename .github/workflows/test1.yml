@@ -56,7 +56,7 @@ jobs:
     with:
       TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
       HOGE_ENV: ${{ env.HOGE_ENV }}
-      HOGE_SECRET: ${{ env.HOGE_SECRET }}
+      HOGE_SECRET: 222222
     secrets: inherit
 
   # test-job2-2:
