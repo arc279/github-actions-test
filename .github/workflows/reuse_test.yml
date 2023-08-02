@@ -4,11 +4,19 @@ on:
       TF_VERSION:
         required: true
         type: string
+      HOGE_ENV:
+        required: true
+        type: string
+      HOGE_SECRET:
+        required: true
+        type: string
 
 env:
   TF_VERSION2: ${{ inputs.TF_VERSION }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  HOGE_ENV: ${{ inputs.ENV_HOGE }}
+  HOGE_SECRET: ${{ inputs.HOGE_SECRET }}
 
 jobs:
   reuse-test:

@@ -7,8 +7,8 @@ on:
 env:
   ENV: develop
   TF_VERSION: 1.5.0
-  SECRET_HOGE: ${{ secrets.HOGE }}
-  ENV_HOGE: hoge
+  HOGE_SECRET: ${{ secrets.HOGE }}
+  HOGE_ENV: hoge
   AWS_DEFAULT_REGION: ap-northeast-1
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -55,6 +55,8 @@ jobs:
     uses: ./.github/workflows/reuse_test.yml
     with:
       TF_VERSION: ${{ needs.vars.outputs.TF_VERSION }}
+      HOGE_ENV: ${{ env.HOGE_ENV }}
+      HOGE_SECRET: ${{ secrets.HOGE }}
     secrets: inherit
 
   # test-job2-2:
