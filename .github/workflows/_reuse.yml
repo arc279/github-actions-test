@@ -18,10 +18,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: get-version
+        run: echo TF_VERSION_FROM_FILE=$(cat infra/.terraform-version) >> ${GITHUB_ENV}
+
+      - name: check version
+        run: echo "VERSION from file is ${{ env.TF_VERSION_FROM_FILE }}"
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: ${{ inputs.TF_VERSION }}
+          # terraform_version: ${{ inputs.TF_VERSION }}
+          terraform_version: ${{ env.TF_VERSION_FROM_FILE }}
 
       - name: terraform version
         shell: bash
