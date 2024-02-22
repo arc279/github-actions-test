@@ -3,7 +3,10 @@ name: "reuse"
 on:
   workflow_call:
     inputs:
-      cwd:
+      chdir:
+        required: true
+        type: string
+      tf_version_file:
         required: true
         type: string
 
@@ -16,7 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: get-version
-        run: echo TF_VERSION_FROM_FILE=$(cat infra/.terraform-version) >> ${GITHUB_ENV}
+        run: echo TF_VERSION_FROM_FILE=$(cat ${{ inputs.tf_version_file }}) >> ${GITHUB_ENV}
 
       - name: check version
         run: echo "VERSION from file is ${{ env.TF_VERSION_FROM_FILE }}"
@@ -24,10 +27,9 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          # terraform_version: ${{ inputs.TF_VERSION }}
           terraform_version: ${{ env.TF_VERSION_FROM_FILE }}
 
       - name: terraform version
         shell: bash
-        working-directory: ${{ inputs.cwd }}
+        working-directory: ${{ inputs.chdir }}
         run: terraform version

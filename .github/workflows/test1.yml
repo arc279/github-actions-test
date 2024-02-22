@@ -61,4 +61,5 @@ jobs:
   test-job3:
     uses: ./.github/workflows/_reuse.yml
     with:
-      cwd: ./infra
+      chdir: ./infra
+      tf_version_file: ./infra/.terraform-version
