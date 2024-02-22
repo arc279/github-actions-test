@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: get-version
+      - name: get version
         run: echo TF_VERSION_FROM_FILE=$(cat ${{ inputs.tf_version_file }}) >> ${GITHUB_ENV}
 
       - name: check version
