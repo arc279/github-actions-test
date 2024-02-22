@@ -59,14 +59,7 @@ jobs:
         run: jq . colors.json
 
   test-job3:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
-
-      - name: reuse
-        uses: ./.github/workflows/_reuse.yml
-        with:
-          cwd: ./src
-          TF_VERSION: ${{ env.TF_VERSION }}
+    uses: ./.github/workflows/_reuse.yml
+    with:
+      cwd: ./src
+      TF_VERSION: ${{ env.TF_VERSION }}
