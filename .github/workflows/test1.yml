@@ -61,5 +61,4 @@ jobs:
   test-job3:
     uses: ./.github/workflows/_reuse.yml
     with:
-      cwd: ./src
-      TF_VERSION: ${{ env.TF_VERSION }}
+      cwd: ./infra

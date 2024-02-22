@@ -6,9 +6,6 @@ on:
       cwd:
         required: true
         type: string
-      TF_VERSION:
-        required: true
-        type: string
 
 jobs:
   terraform:
