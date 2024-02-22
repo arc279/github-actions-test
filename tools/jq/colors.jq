@@ -1,2 +1,2 @@
 .[]
-| "echo \(.color) is \(.value)!!!!!!!!"
+| "echo \"\(.color) is \(.value)!!!!!!!!\""
