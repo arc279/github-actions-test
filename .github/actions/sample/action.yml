@@ -5,6 +5,12 @@ inputs:
   tf_version:
     description: "test"
     required: true
+  AWS_ACCESS_KEY_ID:
+    description: "test"
+    required: true
+  AWS_SECRET_ACCESS_KEY:
+    description: "test"
+    required: true
 
 runs:
   using: "composite"
@@ -15,4 +21,11 @@ runs:
 
     - name: step2
       shell: bash
-      run: echo ${{ inputs.tf_version }}
+      run: |
+        echo ${{ inputs.tf_version }}
+        echo ${{ inputs.AWS_ACCESS_KEY_ID }}
+        echo ${{ inputs.AWS_SECRET_ACCESS_KEY }}
+
+    - name: show env
+      shell: bash
+      run: env | sort
