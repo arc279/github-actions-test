@@ -1,0 +1,59 @@
+name: "test1"
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  ENV: develop
+  TF_VERSION: 1.5.0
+  HOGE_SECRET: ${{ secrets.HOGE }}
+  HOGE_ENV: hoge
+  AWS_DEFAULT_REGION: ap-northeast-1
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  test-job1:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: step1
+        run: |
+          pwd
+          ls -la
+          env | sort
+          echo ${{ env.AWS_DEFAULT_REGION }}
+          echo ${{ env.ENV }}
+          echo event number: ${{github.event.number}}
+          echo event name: ${{ github.event_name }}
+          echo event type: ${{ github.event.action }}
+          echo merged: ${{ github.event.pull_request.merged }}
+
+          echo '2' ${{ github.ref }}
+          echo '3' ${{ github.ref_name }}
+          echo '4' ${{ github.head_ref }}
+          echo '5' ${{ github.base_ref }}
+
+          echo ${GITHUB_ENV}
+
+      - name: step2
+        uses: ./.github/actions/sample
+        with:
+          tf_version: ${{ env.TF_VERSION }}
+
+      - name: step3
+        run: bash src/test.sh
+
+  test-job2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: step1
+        run: jq . colors.json
