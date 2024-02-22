@@ -26,6 +26,7 @@ jobs:
           pwd
           ls -la
           env | sort
+
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
           echo event number: ${{github.event.number}}
@@ -66,3 +67,16 @@ jobs:
       chdir: ./infra
       tf_version_file: ./infra/.terraform-version
     secrets: inherit
+
+  test-job4:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: step1
+        run: jq -c '.[]' colors.json >lines.json
+
+      - name: step2
+        run: jq .value lines.json
