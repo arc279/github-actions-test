@@ -57,3 +57,13 @@ jobs:
 
       - name: step1
         run: jq . colors.json
+
+  test-job3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: reuse
+        uses: ./.github/workflows/_reuse.yml
+        with:
+          cwd: ./src
+          TF_VERSION: ${{ env.TF_VERSION }}

@@ -1,0 +1,29 @@
+name: "reuse"
+
+on:
+  workflow_call:
+    inputs:
+      cwd:
+        required: true
+        type: string
+      TF_VERSION:
+        required: true
+        type: string
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: ${{ inputs.TF_VERSION }}
+
+      - name: terraform version
+        shell: bash
+        working-directory: ${{ inputs.cwd }}
+        run: terraform version
