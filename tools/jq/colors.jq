@@ -1,0 +1,2 @@
+.[]
+| "echo \(.color) is \(.value)!!!!!!!!"

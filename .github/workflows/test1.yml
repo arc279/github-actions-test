@@ -76,7 +76,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: step1
-        run: jq -c '.[]' colors.json >lines.json
+        run: jq -r -f tools/jq/colors.jq colors.json >run.sh
 
       - name: step2
-        run: jq .value lines.json
+        run: bash run.sh
