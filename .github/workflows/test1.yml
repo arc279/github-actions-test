@@ -170,3 +170,7 @@ jobs:
         with:
           cwd: docker/
           build_cmd: docker compose build development
+
+      - name: step2
+        run: |
+          docker run --rm -it 111111111111.dkr.ecr.ap-northeast-1.amazonaws.com/sample:development
