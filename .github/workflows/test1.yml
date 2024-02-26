@@ -103,3 +103,13 @@ jobs:
         uses: ./.github/actions/sample2
         with:
           i1: "aaaaa"
+
+      - name: step5
+        uses: ./.github/actions/sample2
+        with:
+          i1: true
+
+      - name: step6
+        uses: ./.github/actions/sample2
+        with:
+          i1: false
