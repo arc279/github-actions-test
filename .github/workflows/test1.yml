@@ -129,3 +129,21 @@ jobs:
           tf_version_file: ./infra/.terraform-version
           cwd: infra/envs/develop/
           plan: "1"
+
+  test-job7:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: step1
+        uses: ./.github/actions/sample3
+        with:
+          cmd1: echo "hello world"
+          cmd2: cat ./infra/.terraform-version
+
+      - name: step2
+        uses: ./.github/actions/sample3
+        with:
+          cmd1: env | sort

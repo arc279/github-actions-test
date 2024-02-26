@@ -1,0 +1,21 @@
+name: "Composite Action"
+description: "[Test] Composite Action"
+
+inputs:
+  cmd1:
+    description: "test"
+  cmd2:
+    description: "test"
+
+runs:
+  using: "composite"
+  steps:
+    - name: step1
+      shell: bash
+      run: |
+        ${{ inputs.cmd1 }}
+
+    - name: step1
+      shell: bash
+      run: |
+        ${{ inputs.cmd2 }}
