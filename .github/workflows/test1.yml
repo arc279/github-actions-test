@@ -29,6 +29,10 @@ jobs:
 
           echo ${{ env.AWS_DEFAULT_REGION }}
           echo ${{ env.ENV }}
+
+      - name: step2
+        run: |
+          echo event: ${{github.event}}
           echo event number: ${{github.event.number}}
           echo event name: ${{ github.event_name }}
           echo event type: ${{ github.event.action }}
@@ -42,6 +46,9 @@ jobs:
           echo ${GITHUB_ENV}
 
       - name: step3
+        run: cat $GITHUB_EVENT_PATH
+
+      - name: step4
         run: bash src/test.sh
 
   test-job2:
@@ -83,8 +90,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - run: cat $GITHUB_EVENT_PATH
-
       - name: Check out repository code
         uses: actions/checkout@v4
 
