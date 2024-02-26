@@ -1,0 +1,40 @@
+name: "Composite Action"
+description: "[Test] Composite Action"
+
+inputs:
+  i1:
+    description: "test"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: step1
+      shell: bash
+      if: inputs.i1 == true
+      run: |
+        echo step1 ${{ inputs.i1}}
+
+    - name: step2
+      shell: bash
+      if: inputs.i1 == false
+      run: |
+        echo step2 ${{ inputs.i1}}
+
+    - name: step3
+      shell: bash
+      if: inputs.i1
+      run: |
+        echo step3 ${{ inputs.i1}}
+
+    - name: step4
+      shell: bash
+      if: inputs.i1 == "true"
+      run: |
+        echo step4 ${{ inputs.i1}}
+
+    - name: step5
+      shell: bash
+      if: inputs.i1 == "false"
+      run: |
+        echo step5 ${{ inputs.i1}}

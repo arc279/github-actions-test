@@ -78,3 +78,30 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ env.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ env.AWS_SECRET_ACCESS_KEY }}
           ENV_TEST: "this is test!!!!!"
+
+  test-job5:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: step1
+        uses: ./.github/actions/sample2
+        with:
+          i1: ""
+
+      - name: step2
+        uses: ./.github/actions/sample2
+        with:
+          i1: "true"
+
+      - name: step3
+        uses: ./.github/actions/sample2
+        with:
+          i1: "false"
+
+      - name: step4
+        uses: ./.github/actions/sample2
+        with:
+          i1: "aaaaa"
