@@ -173,4 +173,4 @@ jobs:
 
       - name: step2
         run: |
-          docker run --rm -it 111111111111.dkr.ecr.ap-northeast-1.amazonaws.com/sample:development
+          docker run --rm 111111111111.dkr.ecr.ap-northeast-1.amazonaws.com/sample:development
