@@ -4,7 +4,6 @@ description: "[Test] Composite Action"
 inputs:
   i1:
     description: "test"
-    required: true
 
 runs:
   using: "composite"

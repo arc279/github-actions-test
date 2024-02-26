@@ -88,8 +88,6 @@ jobs:
 
       - name: step1
         uses: ./.github/actions/sample2
-        with:
-          i1: ""
 
       - name: step2
         uses: ./.github/actions/sample2
