@@ -1,0 +1,27 @@
+name: docker build arm64
+description: |
+  docker image を arm64 向けにビルドする
+
+inputs:
+  cwd:
+    required: true
+    description: "terraform plan するディレクトリ"
+  build_cmd:
+    required: true
+    description: "ビルド実行するコマンド"
+
+runs:
+  using: "composite"
+  steps:
+    - name: set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: setup docker build arm
+      uses: docker/setup-buildx-action@v2
+      with:
+        platforms: linux/arm64
+
+    - name: build
+      working-directory: ${{ inputs.cwd }}
+      shell: bash
+      run: ${{ inputs.build_cmd }}

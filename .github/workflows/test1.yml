@@ -54,7 +54,7 @@ jobs:
         run: echo "$GITHUB_EVENT"
 
       - name: step5
-        run: bash src/test.sh
+        run: bash app/test.sh
 
   test-job2:
     runs-on: ubuntu-latest
@@ -157,3 +157,16 @@ jobs:
         uses: ./.github/actions/sample3
         with:
           cmd1: env | sort
+
+  test-job8:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: step1
+        uses: ./.github/actions/docker.build.arm64
+        with:
+          cwd: docker/
+          build_cmd: docker compose build development

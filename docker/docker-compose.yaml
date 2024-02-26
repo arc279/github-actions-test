@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  development:
+    image: 111111111111.dkr.ecr.ap-northeast-1.amazonaws.com/sample:development
+    platform: linux/arm64
+    build:
+      context: ../app
+      dockerfile: ../docker/Dockerfile
+
+  production:
+    image: 111111111111.dkr.ecr.ap-northeast-1.amazonaws.com/sample:production
+    platform: linux/arm64
+    build:
+      context: ../app
+      dockerfile: ../docker/Dockerfile
