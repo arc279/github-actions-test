@@ -1,0 +1,54 @@
+name: terraform processing
+description: |
+  terraform の validate, plan, apply までの一連の処理
+
+inputs:
+  tf_version_file:
+    required: true
+    description: "使用する .terraform-version ファイル"
+  cwd:
+    required: true
+    description: "terraform plan するディレクトリ"
+  plan:
+    description: "terraform plan を実行するか？"
+  apply:
+    description: "terraform apply を実行するか？"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Get Version From File
+      shell: bash
+      run: echo TF_VERSION_FROM_FILE=$(cat ${{ inputs.tf_version_file }}) >> ${GITHUB_ENV}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ env.TF_VERSION_FROM_FILE }}
+
+    - name: terraform fmt
+      working-directory: ${{ inputs.cwd }}
+      shell: bash
+      run: terraform fmt -check -recursive
+
+    - name: terraform init
+      working-directory: ${{ inputs.cwd }}
+      shell: bash
+      run: terraform init
+
+    - name: terraform validate
+      working-directory: ${{ inputs.cwd }}
+      shell: bash
+      run: terraform validate
+
+    - name: terraform plan
+      if: inputs.plan
+      working-directory: ${{ inputs.cwd }}
+      shell: bash
+      run: terraform plan -no-color
+
+    - name: terraform apply
+      working-directory: ${{ inputs.cwd }}
+      if: inputs.apply
+      shell: bash
+      run: terraform apply -no-color -auto-approve
