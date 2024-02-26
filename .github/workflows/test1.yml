@@ -49,6 +49,11 @@ jobs:
         run: cat $GITHUB_EVENT_PATH
 
       - name: step4
+        env:
+          GITHUB_EVENT: ${{ toJson(github.event) }}
+        run: echo "$GITHUB_EVENT"
+
+      - name: step5
         run: bash src/test.sh
 
   test-job2:
