@@ -11,10 +11,17 @@ inputs:
   AWS_SECRET_ACCESS_KEY:
     description: "test"
     required: true
+  ENV_TEST:
+    description: "test"
+    required: true
 
 runs:
   using: "composite"
   steps:
+    - name: show env
+      shell: bash
+      run: env | sort
+
     - name: step1
       shell: bash
       run: echo 'Hello World'
@@ -26,6 +33,9 @@ runs:
         echo ${{ inputs.AWS_ACCESS_KEY_ID }}
         echo ${{ inputs.AWS_SECRET_ACCESS_KEY }}
 
-    - name: show env
+    - name: step3
       shell: bash
-      run: env | sort
+      run: |
+        echo ${ENV_TEST}
+      env:
+        ENV_TEST: ${{ inputs.ENV_TEST }}
