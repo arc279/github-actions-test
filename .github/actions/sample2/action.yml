@@ -29,12 +29,12 @@ runs:
 
     - name: step4
       shell: bash
-      if: ${{ inputs.i1 == "true" }}
+      if: inputs.i1 == 'true'
       run: |
         echo step4 ${{ inputs.i1}}
 
     - name: step5
       shell: bash
-      if: ${{ inputs.i1 == "false" }}
+      if: inputs.i1 == 'false'
       run: |
         echo step5 ${{ inputs.i1}}
