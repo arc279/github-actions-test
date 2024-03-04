@@ -1,0 +1,25 @@
+name: "matrix"
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  test-job1:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        branch:
+          - development
+          - staging
+          - production
+
+    steps:
+      - name: step1
+        run: |
+          echo '1' ${{ matrix.branch }}
+          echo '2' ${{ github.ref }}
+          echo '3' ${{ github.ref_name }}
+          echo '4' ${{ github.head_ref }}
+          echo '5' ${{ github.base_ref }}
