@@ -17,6 +17,7 @@ jobs:
 
     steps:
       - name: step1
+        if: ${{ matrix.branch == github.ref_name }}
         run: |
           echo '1' ${{ matrix.branch }}
           echo '2' ${{ github.ref }}
