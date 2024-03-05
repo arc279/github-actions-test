@@ -19,16 +19,16 @@ jobs:
 
     steps:
       - name: step1
-        if: ${{ matrix.env == github.ref_name }}
+        if: matrix.env == github.ref_name
         run: |
-          echo '1' ${{ matrix.branch }}
+          echo '1' ${{ matrix.env }}
           echo '2' ${{ github.ref }}
           echo '3' ${{ github.ref_name }}
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
 
       - name: step2
-        if: ${{ matrix.env == github.ref_name }}
+        if: matrix.env == github.ref_name
         run: |
           env | sort
           echo $ENV
