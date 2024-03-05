@@ -7,13 +7,15 @@ on:
 jobs:
   test-job1:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         env:
           - development
           - staging
           - production
+
+    env:
+      ENV: ${{ matrix.env }}
 
     steps:
       - name: step1
@@ -24,3 +26,9 @@ jobs:
           echo '3' ${{ github.ref_name }}
           echo '4' ${{ github.head_ref }}
           echo '5' ${{ github.base_ref }}
+
+      - name: step2
+        if: ${{ matrix.env == github.ref_name }}
+        run: |
+          env | sort
+          echo $ENV
